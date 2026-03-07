@@ -43,13 +43,25 @@ Built with vanilla JavaScript, [pdf-lib](https://pdf-lib.js.org/), [PDF.js](http
 
 ## Features
 
-- **100% client-side** — all processing happens in the browser using WebAssembly and Canvas APIs
-- **No file uploads** — files are read and written locally; nothing is sent to any server
-- **Works offline** — once loaded, the app functions without an internet connection
+- **100% client-side:** all processing happens in the browser using WebAssembly and Canvas APIs
+- **No file uploads:** files are read and written locally; nothing is sent to any server
+- **Works offline:** once loaded, the app functions without an internet connection
 - **No watermarks, no sign-up, no limits**
 - **Drag & drop** support across all tools
 
 ---
+
+## How does it Work?
+
+When you upload a file, it never leaves your device. Here is exactly what happens:
+
+1. **The browser reads the file into memory** using the `FileReader` / `ArrayBuffer` API. The file data lives in your browser's RAM, not on any server.
+2. **pdf-lib and PDF.js process it locally** inside your browser tab using JavaScript and WebAssembly.
+3. **The result is generated in memory** as a new `Blob` object, still entirely in RAM.
+4. **You download it** via a temporary local URL (`URL.createObjectURL`) that the browser creates, triggers the download, then immediately revokes.
+5. **When you close the tab**, everything is gone. No trace left anywhere.
+
+No data is ever sent over the network. There is no backend, no database, and no cloud storage involved. You can turn off your WiFi after the page loads and every tool will still work.
 
 ## Tools
 
