@@ -132,6 +132,8 @@ npm run preview
 ```
 pdf-kit/
 ├── public/
+│   ├── favicon.svg
+│   ├── og-image.png
 │   └── robots.txt
 ├── src/
 │   ├── assets/
