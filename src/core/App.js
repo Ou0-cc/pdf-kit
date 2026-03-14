@@ -16,7 +16,6 @@ export function renderApp() {
         <button data-section="edit">Edit & Organize</button>
         <button data-section="convert">Convert</button>
         <button data-section="howitworks">How does it Work?</button>
-        <button data-section="support">Sponsor</button>
       </nav>
     </header>
 
@@ -129,16 +128,6 @@ export function renderApp() {
           </div>
         </div>
 
-        <!-- SUPPORT -->
-        <div class="tool-section" id="section-support">
-          <div class="section-label">Sponsor</div>
-          <div class="info-card">
-            <p>pdfkit is free and open-source. If it has been useful to you, consider supporting its development via GitHub Sponsors.</p>
-            <a href="https://github.com/sponsors/viveknaskar" target="_blank" rel="noopener" class="btn-sponsor">
-              ❤️ Sponsor on GitHub
-            </a>
-          </div>
-        </div>
       </div>
     </div>
 
@@ -146,7 +135,8 @@ export function renderApp() {
     ${toolViewsHTML()}
 
     <footer>
-      <p>pdfkit — All processing happens in your browser. Your files never leave your device.</p>
+      <p><a href="https://github.com/viveknaskar/pdf-kit" target="_blank" rel="noopener noreferrer">pdfkit</a> — All processing happens in your browser. Your files never leave your device.</p>
+      <p>Brought to you by <a href="https://ou0.cc">Ou0.cc</a></p>
     </footer>
   `;
 }
@@ -541,6 +531,9 @@ export function showHome() {
   document.getElementById('homeView').style.display = 'block';
   document.querySelectorAll('.tool-view').forEach(v => v.classList.remove('active'));
   window.scrollTo(0, 0);
+
+  // remove hash from URL when going back to home
+  history.pushState(null, '', window.location.pathname);
 }
 
 /**
@@ -555,6 +548,8 @@ export function openTool(tool) {
     view.classList.add('animate-in');
   }
   window.scrollTo(0, 0);
+
+  history.pushState(null, '', '#' + tool);
 }
 
 /**
@@ -585,4 +580,15 @@ export function initNav() {
   document.querySelectorAll('[data-back]').forEach(btn => {
     btn.addEventListener('click', showHome);
   });
+}
+
+/**
+ * Check URL hash on page load to open specific tool if linked directly.
+ */
+export function checkHashForTool() {
+  const hash = window.location.hash.substring(1);
+  console.log('URL hash:', hash);
+  if (hash) {
+    openTool(hash);
+  }
 }

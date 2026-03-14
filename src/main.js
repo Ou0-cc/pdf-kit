@@ -11,8 +11,17 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
   import.meta.url
 ).toString();
 
+import { init } from '@plausible-analytics/tracker'
+init({
+  domain: 'ou0.cc',
+  endpoint: 'https://plausible.canine.tools/api/event',
+  captureOnLocalhost: false,
+  outboundLinks: true,
+  hashBasedRouting: true
+});
+
 // Core
-import { renderApp, initNav } from './core/App.js';
+import { renderApp, initNav, checkHashForTool } from './core/App.js';
 import { initDropZones } from './core/DropZone.js';
 
 // Tools
@@ -48,4 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initWatermark();
   initEncrypt();
   initExtract();
+
+  checkHashForTool();
 });
