@@ -12,13 +12,17 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
 ).toString();
 
 import { init } from '@plausible-analytics/tracker'
-init({
-  domain: 'ou0.cc',
-  endpoint: 'https://plausible.canine.tools/api/event',
-  captureOnLocalhost: false,
-  outboundLinks: true,
-  hashBasedRouting: true
-});
+
+// disable if localstorage, disablePlausible is set to true
+if (!localStorage.getItem('disablePlausible')) {
+  init({
+    domain: 'ou0.cc',
+    endpoint: 'https://plausible.canine.tools/api/event',
+    captureOnLocalhost: false,
+    outboundLinks: true,
+    hashBasedRouting: true,
+  });
+}
 
 // Core
 import { renderApp, initNav, checkHashForTool } from './core/App.js';
